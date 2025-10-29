@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     namespace 'com.example.webrtc'  // 你的包名
-    compileSdk 34  // 降到 34, 避免 SDK 兼容问题
+    compileSdk 34  // 兼容老项目
 
     defaultConfig {
         applicationId "com.example.webrtc"
@@ -28,13 +28,13 @@ android {
 }
 
 dependencies {
-    // 新 WebRTC fork (最新, 支持 1080p, 替换老版)
+    // 最新 WebRTC fork (2025-6, Maven Central)
     implementation 'com.infobip:google-webrtc:1.0.45036'
 
-    // 新 PubNub (最新)
+    // 最新 PubNub (2025-10, Maven Central)
     implementation 'com.pubnub:pubnub-gson:11.0.0'
 
-    // 注释老依赖 (避免冲突, 测试后如果需要更新代码)
+    // 注释老依赖避免冲突 (如果代码报错, 更新 Java 代码)
     // implementation 'io.pristine:libjingle:9694@aar'
     // implementation 'me.kevingleason:pnwebrtc:1.0.6@aar'
 
