@@ -1,22 +1,25 @@
 buildscript {
+    ext {
+        agp_version = '8.2.2'
+    }
     repositories {
-        google()         // 必须放在最前面
-        mavenCentral()   // 替换 jcenter()
+        google()
+        mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:8.2.0'  // 升级到最新稳定版
-        // 如果有 kotlin
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.10"
+        classpath "com.android.tools.build:gradle:$agp_version"
+        // 如有其他插件在此添加
     }
 }
 
 allprojects {
     repositories {
-        google()
+        google()           // 必须：WebRTC 在这里
         mavenCentral()
+        maven { url 'https://jitpack.io' }  // libjingle 可能需要
     }
 }
 
-task clean(type: Delete) {
+tasks.register('clean', Delete) {
     delete rootProject.buildDir
 }
