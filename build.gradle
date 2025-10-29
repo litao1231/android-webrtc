@@ -14,8 +14,8 @@ buildscript {
 allprojects {
     repositories {
         google()
-        mavenCentral()     // Infobip WebRTC + PubNub 在这里
-        maven { url 'https://jitpack.io' }  // 如需 libjingle/pnwebrtc
+        mavenCentral()  // Infobip + PubNub 在这里
+        maven { url 'https://jitpack.io' }  // 如需老依赖
     }
 }
 
