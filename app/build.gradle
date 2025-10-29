@@ -1,16 +1,13 @@
-plugins {
-    id 'com.android.application'
-    id 'org.jetbrains.kotlin.android'
-}
+apply plugin: 'com.android.application'
 
 android {
-    namespace 'com.example.webrtc'
-    compileSdk 34
+    namespace 'com.example.webrtc'  // 替换成你的包名
+    compileSdk 35
 
     defaultConfig {
         applicationId "com.example.webrtc"
         minSdk 21
-        targetSdk 34
+        targetSdk 35
         versionCode 1
         versionName "1.0"
 
@@ -23,26 +20,29 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
     }
-    kotlinOptions {
-        jvmTarget = '17'
-    }
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])  // ← 改这里！
-    implementation 'androidx.core:core-ktx:1.12.0'
-    implementation 'androidx.appcompat:appcompat:1.6.1'
-    implementation 'com.google.android.material:material:1.11.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    
-    // WebRTC 官方库
-    implementation 'org.webrtc:google-webrtc:1.0.32006'
+    // 修复：使用真实存在的 WebRTC 版本
+    implementation 'org.webrtc:google-webrtc:1.0.+'
 
+    // 你的原始依赖（保留）
+    implementation 'io.pristine:libjingle:9694@aar'
+    implementation 'com.pubnub:pubnub-gson:4.39.0'
+    implementation 'me.kevingleason:pnwebrtc:1.0.6@aar'
+
+    // 基础 UI 库
+    implementation 'androidx.appcompat:appcompat:1.7.0'
+    implementation 'com.google.android.material:material:1.12.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+
+    // 测试
     testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+    androidTestImplementation 'androidx.test.ext:junit:1.2.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.6.1'
 }
