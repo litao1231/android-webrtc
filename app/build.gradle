@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 
 android {
-    namespace 'com.example.webrtc'  // 替换成你的包名
+    namespace 'com.example.webrtc'  // 改成你的包名
     compileSdk 35
 
     defaultConfig {
@@ -28,15 +28,17 @@ android {
 }
 
 dependencies {
-    // 修复：使用真实存在的 WebRTC 版本
-    implementation 'org.webrtc:google-webrtc:1.0.+'
+    // 修复1：使用真实存在的 WebRTC 版本（固定）
+    implementation 'org.webrtc:google-webrtc:1.0.32406'
+
+    // 修复2：使用真实存在的 PubNub 版本
+    implementation 'com.pubnub:pubnub-gson:4.38.0'
 
     // 你的原始依赖（保留）
     implementation 'io.pristine:libjingle:9694@aar'
-    implementation 'com.pubnub:pubnub-gson:4.39.0'
     implementation 'me.kevingleason:pnwebrtc:1.0.6@aar'
 
-    // 基础 UI 库
+    // 基础库
     implementation 'androidx.appcompat:appcompat:1.7.0'
     implementation 'com.google.android.material:material:1.12.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
