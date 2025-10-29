@@ -1,28 +1,48 @@
-apply plugin: 'com.android.application'
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+}
 
 android {
-    compileSdkVersion 21
-    buildToolsVersion "20.0.0"
+    namespace 'com.example.webrtc'
+    compileSdk 34
 
     defaultConfig {
-        applicationId "me.pntutorial.pnrtcblog"
-        minSdkVersion 15
-        targetSdkVersion 21
+        applicationId "com.example.webrtc"
+        minSdk 21
+        targetSdk 34
         versionCode 1
         versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+
     buildTypes {
         release {
-          // runProguard false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+    kotlinOptions {
+        jvmTarget = '17'
     }
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    // TODO: Uncomment the following compilation lines
-    compile 'io.pristine:libjingle:9694@aar'
-    compile 'com.pubnub:pubnub-android:3.7.4'
-    compile 'me.kevingleason:pnwebrtc:1.0.6@aar'
+    implementation fileTree(dir: 'libs', include: ['*.jar'])  // ← 改这里！
+    implementation 'androidx.core:core-ktx:1.12.0'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.11.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    
+    // WebRTC 官方库
+    implementation 'org.webrtc:google-webrtc:1.0.32006'
+
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 }
