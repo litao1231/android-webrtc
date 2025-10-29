@@ -8,15 +8,14 @@ buildscript {
     }
     dependencies {
         classpath "com.android.tools.build:gradle:$agp_version"
-        // 如有其他插件在此添加
     }
 }
 
 allprojects {
     repositories {
-        google()           // 必须：WebRTC 在这里
-        mavenCentral()
-        maven { url 'https://jitpack.io' }  // libjingle 可能需要
+        google()           // WebRTC 必须
+        mavenCentral()     // PubNub 必须
+        maven { url 'https://jitpack.io' }  // libjingle 必须
     }
 }
 
