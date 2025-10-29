@@ -2,12 +2,12 @@ apply plugin: 'com.android.application'
 
 android {
     namespace 'com.example.webrtc'  // 你的包名
-    compileSdk 35
+    compileSdk 34  // 降到 34, 避免 SDK 兼容问题
 
     defaultConfig {
         applicationId "com.example.webrtc"
         minSdk 21
-        targetSdk 35
+        targetSdk 34
         versionCode 1
         versionName "1.0"
 
@@ -28,17 +28,17 @@ android {
 }
 
 dependencies {
-    // 修复1：用 Infobip 维护的 WebRTC（最新，支持 1080p，在 Maven Central）
-    implementation 'com.infobip:google-webrtc:1.0.39079'
+    // 新 WebRTC fork (最新, 支持 1080p, 替换老版)
+    implementation 'com.infobip:google-webrtc:1.0.45036'
 
-    // 修复2：PubNub 最新版（11.0.0）
+    // 新 PubNub (最新)
     implementation 'com.pubnub:pubnub-gson:11.0.0'
 
-    // 原始依赖（保留，但 libjingle 可删，如果用新 WebRTC）
-    implementation 'io.pristine:libjingle:9694@aar'
-    implementation 'me.kevingleason:pnwebrtc:1.0.6@aar'
+    // 注释老依赖 (避免冲突, 测试后如果需要更新代码)
+    // implementation 'io.pristine:libjingle:9694@aar'
+    // implementation 'me.kevingleason:pnwebrtc:1.0.6@aar'
 
-    // 基础库（升级）
+    // 基础库
     implementation 'androidx.appcompat:appcompat:1.7.0'
     implementation 'com.google.android.material:material:1.12.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
