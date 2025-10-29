@@ -14,7 +14,7 @@ buildscript {
 allprojects {
     repositories {
         google()
-        mavenCentral()  // Infobip + PubNub 在这里
+        mavenCentral()  // 最新依赖在这里
         maven { url 'https://jitpack.io' }  // 如需老依赖
     }
 }
