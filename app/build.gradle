@@ -1,22 +1,26 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 34  // 兼容 Android 14
+    namespace 'com.example.webrtc'  // 修复：添加 namespace（匹配 Manifest package）
+    compileSdk 34
+
     defaultConfig {
         applicationId "com.example.webrtc"
-        minSdkVersion 21
-        targetSdkVersion 34
+        minSdk 21
+        targetSdk 34
         versionCode 1
         versionName "1.0"
     }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_17  // 升级兼容 JDK 17
+        sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
     }
 }
@@ -25,10 +29,10 @@ dependencies {
     // 最新 WebRTC fork (2025-06, 支持 1080p)
     implementation 'com.infobip:google-webrtc:1.0.45036'
 
-    // 最新 PubNub (2025-01)
-    implementation 'com.pubnub:pubnub-gson:10.4.0'
+    // 最新 PubNub (2025, 替换旧版)
+    implementation 'com.pubnub:pubnub-gson:11.0.0'
 
-    // 注释老依赖
+    // 注释老依赖（避免冲突）
     // implementation 'io.pristine:libjingle:9694@aar'
     // implementation 'me.kevingleason:pnwebrtc:1.0.6@aar'
     // implementation 'com.pubnub:pubnub-android:3.7.4'
@@ -37,4 +41,9 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.7.0'
     implementation 'com.google.android.material:material:1.12.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+
+    // 测试
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.2.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.6.1'
 }
