@@ -1,51 +1,40 @@
 apply plugin: 'com.android.application'
 
 android {
-    namespace 'com.example.webrtc'  // 你的包名
-    compileSdk 34  // 兼容老项目
-
+    compileSdkVersion 34  // 兼容 2025 Android 14+
     defaultConfig {
         applicationId "com.example.webrtc"
-        minSdk 21
-        targetSdk 34
+        minSdkVersion 21
+        targetSdkVersion 34
         versionCode 1
         versionName "1.0"
-
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
-
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_17
-        targetCompatibility JavaVersion.VERSION_17
+        sourceCompatibility JavaVersion.VERSION_11  // 降到 11, 兼容老项目
+        targetCompatibility JavaVersion.VERSION_11
     }
 }
 
 dependencies {
-    // 最新 WebRTC fork (2025-06, Maven Central, 支持 1080p)
-    implementation 'com.infobip:google-webrtc:1.0.44992'
+    // 修复 WebRTC: 用最新维护 fork (2025, 支持 1080p, Maven Central)
+    implementation 'com.infobip:google-webrtc:1.0.45036'
 
-    // 最新 PubNub (2025-01, Maven Central, 替换旧 pubnub-android)
-    implementation 'com.pubnub:pubnub-gson:10.4.0'
+    // 修复 PubNub: 升级到最新 (2025, 替换旧 3.7.4)
+    implementation 'com.pubnub:pubnub-gson:11.0.0'
 
-    // 注释老依赖 (避免冲突, 更新代码后可移除)
+    // 注释老依赖 (避免冲突, 代码需更新 API)
     // implementation 'io.pristine:libjingle:9694@aar'
     // implementation 'me.kevingleason:pnwebrtc:1.0.6@aar'
     // implementation 'com.pubnub:pubnub-android:3.7.4'
 
-    // 基础库
+    // 基础库升级
     implementation 'androidx.appcompat:appcompat:1.7.0'
     implementation 'com.google.android.material:material:1.12.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-
-    // 测试
-    testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.2.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.6.1'
 }
