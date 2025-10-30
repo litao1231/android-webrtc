@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="me.pntutorial.pnrtcblog">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- 🔥 WebRTC 必备权限 -->
+    <!-- 🔥 WebRTC 权限（全齐，防 crash） -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
@@ -12,8 +11,9 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
 
-    <!-- 🔥 硬件特性（WebRTC 视频） -->
+    <!-- 🔥 硬件支持 -->
     <uses-feature
         android:name="android.hardware.camera"
         android:required="true" />
@@ -23,8 +23,6 @@
 
     <application
         android:allowBackup="true"
-        android:dataExtractionRules="@xml/data_extraction_rules"
-        android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:requestLegacyExternalStorage="true"
@@ -32,7 +30,7 @@
         android:theme="@style/AppTheme"
         tools:targetApi="31">
 
-        <!-- 🔥 主页 - Launcher（已修复 exported） -->
+        <!-- 🔥 MainActivity：Launcher + exported ✅ -->
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -44,25 +42,29 @@
             </intent-filter>
         </activity>
 
-        <!-- 🔥 登录页（如果有，根据你的项目添加 exported） -->
-        <activity
-            android:name=".LoginActivity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
-
-        <!-- 🔥 视频通话页（PubNub WebRTC 核心） -->
+        <!-- 🔥 视频通话页 -->
         <activity
             android:name=".VideoChatActivity"
             android:exported="false"
             android:screenOrientation="sensor"
             android:configChanges="orientation|screenSize|keyboardHidden" />
 
-        <!-- 🔥 可选：其他 Activity，根据你的代码添加 -->
-        <!--
+        <!-- 🔥 可选：登录页（根据你的代码） -->
         <activity
-            android:name=".SettingsActivity"
-            android:exported="false" />
-        -->
+            android:name=".LoginActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+
+        <!-- 🔥 FileProvider（WebRTC 文件分享） -->
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
 
     </application>
 
