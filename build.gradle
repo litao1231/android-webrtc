@@ -1,10 +1,13 @@
+// Top-level build file
 buildscript {
+    ext.kotlin_version = '1.9.22'  // 👈 稳定版，兼容 PubNub
     repositories {
         google()
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:8.2.2'
+        classpath 'com.android.tools.build:gradle:8.5.2'  // 👈 升级！R8 修复 Kotlin
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
 
@@ -12,7 +15,7 @@ allprojects {
     repositories {
         google()
         mavenCentral()
-        maven { url 'https://jitpack.io' }
+        maven { url 'https://jitpack.io' }  // WebRTC/Jingle
     }
 }
 
