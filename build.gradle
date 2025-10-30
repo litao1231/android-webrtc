@@ -1,28 +1,48 @@
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
-buildscript {
-    repositories {
-        google()
-        mavenCentral()
-    }
-    dependencies {
-        classpath 'com.android.tools.build:gradle:8.5.2'
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
-    }
-}
+apply plugin: 'com.android.application'
 
-allprojects {
-    repositories {
-        google()
-        jcenter()  // 必备！io.pristine:libjingle:9694@aar
-        mavenCentral()
-        maven { url "https://jitpack.io" }  // 必备！me.kevingleason:pnwebrtc:1.0.6@aar
-        flatDir {
-            dirs 'libs'  // 支持本地 .aar 文件
+android {
+    namespace 'me.pntutorial.pnrtcblog'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId "me.pntutorial.pnrtcblog"
+        minSdk 21
+        targetSdk 34
+        versionCode 1
+        versionName "1.0"
+    }
+
+    buildTypes {
+        debug {
+            minifyEnabled false  // R8 修复
+            shrinkResources false
+        }
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
 }
 
-task clean(type: Delete) {
-    delete rootProject.buildDir
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
+    
+    // 原项目 WebRTC + PubNub（100% 匹配）
+    implementation 'io.pristine:libjingle:9694@aar'
+    implementation 'com.pubnub:pubnub-android:3.7.4'
+    implementation 'me.kevingleason:pnwebrtc:1.0.6@aar'
+    
+    // AndroidX（现代）
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.11.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 }
