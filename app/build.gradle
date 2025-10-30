@@ -14,7 +14,7 @@ android {
 
     buildTypes {
         debug {
-            minifyEnabled **false**  // R8 修复
+            minifyEnabled false  // R8 修复
             shrinkResources false
         }
         release {
