@@ -1,24 +1,21 @@
 buildscript {
-    ext {
-        agp_version = '8.2.2'
-    }
     repositories {
         google()
         mavenCentral()
     }
     dependencies {
-        classpath "com.android.tools.build:gradle:$agp_version"
+        classpath 'com.android.tools.build:gradle:7.4.2'  // 稳定版, 兼容 JDK 11
     }
 }
 
 allprojects {
     repositories {
         google()
-        mavenCentral()  // 最新依赖在这里
+        mavenCentral()  // 最新依赖
         maven { url 'https://jitpack.io' }  // 如需老依赖
     }
 }
 
-tasks.register('clean', Delete) {
+task clean(type: Delete) {
     delete rootProject.buildDir
 }
