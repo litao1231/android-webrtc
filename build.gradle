@@ -4,15 +4,15 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.4.2'  // 稳定版, 兼容 JDK 11
+        classpath 'com.android.tools.build:gradle:8.2.2'  // 兼容 JDK 17
     }
 }
 
 allprojects {
     repositories {
         google()
-        mavenCentral()  // 最新依赖
-        maven { url 'https://jitpack.io' }  // 如需老依赖
+        mavenCentral()
+        maven { url 'https://jitpack.io' }
     }
 }
 
