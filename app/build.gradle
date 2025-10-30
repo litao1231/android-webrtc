@@ -1,23 +1,44 @@
 apply plugin: 'com.android.application'
 
 android {
-    namespace 'me.pntutorial.pnrtcblog'  // 修复：添加这行，用你的包名
-    compileSdk 34
+    namespace 'me.pntutorial.pnrtcblog'  // 👈 新增！解决 Manifest 警告
+    compileSdk 35
 
     defaultConfig {
         applicationId "me.pntutorial.pnrtcblog"
         minSdk 21
-        targetSdk 34
+        targetSdk 35
         versionCode 1
         versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
+        debug {
+            minifyEnabled false  // 👈 关键！禁用 R8，解决 PubNub Kotlin 崩溃
+            shrinkResources false
+            debuggable true
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+
+    kotlinOptions {
+        jvmTarget = '11'
+    }
+
+    packagingOptions {
+        pickFirst '**/libc++_shared.so'
+        pickFirst '**/libjsc.so'
+    }
+}
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_17
