@@ -28,15 +28,16 @@ android {
 }
 
 dependencies {
-    // 最新 WebRTC fork (2025-6, Maven Central)
-    implementation 'com.infobip:google-webrtc:1.0.45036'
+    // 最新 WebRTC fork (2025-06, Maven Central, 支持 1080p)
+    implementation 'com.infobip:google-webrtc:1.0.44992'
 
-    // 最新 PubNub (2025-10, Maven Central)
-    implementation 'com.pubnub:pubnub-gson:11.0.0'
+    // 最新 PubNub (2025-01, Maven Central, 替换旧 pubnub-android)
+    implementation 'com.pubnub:pubnub-gson:10.4.0'
 
-    // 注释老依赖避免冲突 (如果代码报错, 更新 Java 代码)
+    // 注释老依赖 (避免冲突, 更新代码后可移除)
     // implementation 'io.pristine:libjingle:9694@aar'
     // implementation 'me.kevingleason:pnwebrtc:1.0.6@aar'
+    // implementation 'com.pubnub:pubnub-android:3.7.4'
 
     // 基础库
     implementation 'androidx.appcompat:appcompat:1.7.0'
