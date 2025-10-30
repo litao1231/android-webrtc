@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 34  // 兼容 2025 Android 14+
+    compileSdkVersion 34  // 兼容 Android 14
     defaultConfig {
         applicationId "com.example.webrtc"
         minSdkVersion 21
@@ -16,24 +16,24 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_11  // 降到 11, 兼容老项目
-        targetCompatibility JavaVersion.VERSION_11
+        sourceCompatibility JavaVersion.VERSION_17  // 升级兼容 JDK 17
+        targetCompatibility JavaVersion.VERSION_17
     }
 }
 
 dependencies {
-    // 修复 WebRTC: 用最新维护 fork (2025, 支持 1080p, Maven Central)
+    // 最新 WebRTC fork (2025-06, 支持 1080p)
     implementation 'com.infobip:google-webrtc:1.0.45036'
 
-    // 修复 PubNub: 升级到最新 (2025, 替换旧 3.7.4)
-    implementation 'com.pubnub:pubnub-gson:11.0.0'
+    // 最新 PubNub (2025-01)
+    implementation 'com.pubnub:pubnub-gson:10.4.0'
 
-    // 注释老依赖 (避免冲突, 代码需更新 API)
+    // 注释老依赖
     // implementation 'io.pristine:libjingle:9694@aar'
     // implementation 'me.kevingleason:pnwebrtc:1.0.6@aar'
     // implementation 'com.pubnub:pubnub-android:3.7.4'
 
-    // 基础库升级
+    // 基础库
     implementation 'androidx.appcompat:appcompat:1.7.0'
     implementation 'com.google.android.material:material:1.12.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
