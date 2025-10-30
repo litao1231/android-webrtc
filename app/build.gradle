@@ -1,23 +1,24 @@
 apply plugin: 'com.android.application'
 
 android {
-    namespace 'me.pntutorial.pnrtcblog'  // 👈 新增！解决 Manifest 警告
-    compileSdk 35
+    namespace 'me.pntutorial.pnrtcblog'  // 👈 修复 Manifest 警告
+    compileSdk 34
 
     defaultConfig {
         applicationId "me.pntutorial.pnrtcblog"
-        minSdk 21
-        targetSdk 35
+        minSdk 21  // WebRTC 最低
+        targetSdk 34
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        ndk {
+            abiFilters "armeabi-v7a", "arm64-v8a"
+        }
     }
 
     buildTypes {
         debug {
-            minifyEnabled false  // 👈 关键！禁用 R8，解决 PubNub Kotlin 崩溃
-            shrinkResources false
-            debuggable true
+            minifyEnabled **false**  // 👈 修复 PubNub R8 崩溃
+            shrinkResources **false**
         }
         release {
             minifyEnabled false
@@ -25,45 +26,27 @@ android {
         }
     }
 
+    // 🔥 ✅ 修复语法：完整 compileOptions 块
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_11
-        targetCompatibility JavaVersion.VERSION_11
-    }
-
-    kotlinOptions {
-        jvmTarget = '11'
-    }
-
-    packagingOptions {
-        pickFirst '**/libc++_shared.so'
-        pickFirst '**/libjsc.so'
-    }
-}
-
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_17
-        targetCompatibility JavaVersion.VERSION_17
+        sourceCompatibility **JavaVersion.VERSION_17**  // 👈 你用的17
+        targetCompatibility **JavaVersion.VERSION_17**
     }
 }
 
 dependencies {
-    // 最新 WebRTC (2025-07, 支持 1080p)
-    implementation 'io.github.webrtc-sdk:android:137.7151.00'
-
-    // 最新 PubNub (2025-10)
-    implementation 'com.pubnub:pubnub-gson:11.0.0'
-
-    // 注释老依赖
-    // implementation 'io.pristine:libjingle:9694@aar'
-    // implementation 'me.kevingleason:pnwebrtc:1.0.6@aar'
-
-    // 基础库
-    implementation 'androidx.appcompat:appcompat:1.7.0'
-    implementation 'com.google.android.material:material:1.12.0'
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.10.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
 
-    // 测试
+    // 🔥 WebRTC + PubNub（更新兼容）
+    implementation 'org.webrtc:google-webrtc:1.0.32006'
+    implementation 'com.pubnub:pubnub-android:6.1.5'
+
+    // 原项目 libjingle（如果有）
+    implementation(name: 'libjingle', ext: 'aar')
+
     testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.2.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.6.1'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 }
