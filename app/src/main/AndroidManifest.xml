@@ -1,45 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="me.pntutorial.pnrtcblog" >
+    xmlns:tools="http://schemas.android.com/tools"
+    package="me.pntutorial.pnrtcblog">
 
-    <!-- WebRTC Dependencies -->
-    <uses-feature android:name="android.hardware.camera" />
-    <uses-feature android:name="android.hardware.camera.autofocus" />
-    <uses-feature
-        android:glEsVersion="0x00020000"
-        android:required="true" />
+    <!-- 🔥 WebRTC 必备权限 -->
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
-
-    <!-- PubNub Dependencies -->
-    <!--<uses-permission android:name="android.permission.INTERNET" />-->
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
-    <permission android:name="your.package.name.permission.C2D_MESSAGE" android:protectionLevel="signature" />
-    <uses-permission android:name="your.package.name.permission.C2D_MESSAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
+    <!-- 🔥 硬件特性（WebRTC 视频） -->
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
+    <uses-feature
+        android:name="android.hardware.camera.autofocus"
+        android:required="false" />
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/ic_launcher"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:requestLegacyExternalStorage="true"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        tools:targetApi="31">
+
+        <!-- 🔥 主页 - Launcher（已修复 exported） -->
         <activity
-            android:name="me.pntutorial.pnrtcblog.MainActivity"
-            android:label="@string/app_name" >
+            android:name=".MainActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|screenSize|keyboardHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
+        <!-- 🔥 登录页（如果有，根据你的项目添加 exported） -->
         <activity
-            android:name="me.pntutorial.pnrtcblog.LoginActivity"
-            android:label="@string/title_activity_login" >
-        </activity>
+            android:name=".LoginActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+
+        <!-- 🔥 视频通话页（PubNub WebRTC 核心） -->
+        <activity
+            android:name=".VideoChatActivity"
+            android:exported="false"
+            android:screenOrientation="sensor"
+            android:configChanges="orientation|screenSize|keyboardHidden" />
+
+        <!-- 🔥 可选：其他 Activity，根据你的代码添加 -->
+        <!--
+        <activity
+            android:name=".SettingsActivity"
+            android:exported="false" />
+        -->
+
     </application>
 
 </manifest>
