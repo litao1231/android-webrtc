@@ -1,24 +1,25 @@
 apply plugin: 'com.android.application'
 
 android {
-    namespace 'me.pntutorial.pnrtcblog'  // 👈 修复 Manifest 警告
+    namespace 'me.pntutorial.pnrtcblog'
     compileSdk 34
 
     defaultConfig {
         applicationId "me.pntutorial.pnrtcblog"
-        minSdk 21  // WebRTC 最低
+        minSdk 21
         targetSdk 34
         versionCode 1
         versionName "1.0"
+
         ndk {
-            abiFilters "armeabi-v7a", "arm64-v8a"
+            abiFilters "armeabi-v7a", "arm64-v8a", "x86", "x86_64"
         }
     }
 
     buildTypes {
         debug {
-            minifyEnabled **false**  // 👈 修复 PubNub R8 崩溃
-            shrinkResources **false**
+            minifyEnabled false  // PubNub R8 修复
+            shrinkResources false
         }
         release {
             minifyEnabled false
@@ -26,26 +27,27 @@ android {
         }
     }
 
-    // 🔥 ✅ 修复语法：完整 compileOptions 块
     compileOptions {
-        sourceCompatibility **JavaVersion.VERSION_17**  // 👈 你用的17
-        targetCompatibility **JavaVersion.VERSION_17**
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    
+    // AndroidX
     implementation 'androidx.appcompat:appcompat:1.6.1'
-    implementation 'com.google.android.material:material:1.10.0'
+    implementation 'com.google.android.material:material:1.11.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-
-    // 🔥 WebRTC + PubNub（更新兼容）
+    
+    // WebRTC
     implementation 'org.webrtc:google-webrtc:1.0.32006'
-    implementation 'com.pubnub:pubnub-android:6.1.5'
-
-    // 原项目 libjingle（如果有）
-    implementation(name: 'libjingle', ext: 'aar')
-
+    
+    // PubNub
+    implementation 'com.pubnub:pubnub-android:7.3.0'
+    
+    // 测试
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
