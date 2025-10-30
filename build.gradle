@@ -1,48 +1,26 @@
-apply plugin: 'com.android.application'
-
-android {
-    namespace 'me.pntutorial.pnrtcblog'
-    compileSdk 34
-
-    defaultConfig {
-        applicationId "me.pntutorial.pnrtcblog"
-        minSdk 21
-        targetSdk 34
-        versionCode 1
-        versionName "1.0"
+// 根目录 build.gradle
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        google()
+        mavenCentral()
     }
-
-    buildTypes {
-        debug {
-            minifyEnabled false  // R8 修复
-            shrinkResources false
-        }
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
-    }
-
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_17
-        targetCompatibility JavaVersion.VERSION_17
+    // 明确指定 Android Gradle 插件版本（推荐 8.1.0+）
+    plugins {
+        id 'com.android.application' version '8.1.4' apply false
+        id 'com.android.library' version '8.1.4' apply false
     }
 }
 
-dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
-    
-    // 原项目 WebRTC + PubNub（100% 匹配）
-    implementation 'io.pristine:libjingle:9694@aar'
-    implementation 'com.pubnub:pubnub-android:3.7.4'
-    implementation 'me.kevingleason:pnwebrtc:1.0.6@aar'
-    
-    // AndroidX（现代）
-    implementation 'androidx.appcompat:appcompat:1.6.1'
-    implementation 'com.google.android.material:material:1.11.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    
-    testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+        jcenter() // 必须保留，您的 WebRTC 依赖来自 JCenter
+        maven { url 'https://jitpack.io' }
+    }
 }
+
+rootProject.name = "android-webrtc"
+include ':app'
