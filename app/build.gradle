@@ -1,11 +1,11 @@
 apply plugin: 'com.android.application'
 
 android {
-    namespace 'com.example.webrtc'  // 修复：添加 namespace（匹配 Manifest package）
+    namespace 'me.pntutorial.pnrtcblog'  // 修复：添加这行，用你的包名
     compileSdk 34
 
     defaultConfig {
-        applicationId "com.example.webrtc"
+        applicationId "me.pntutorial.pnrtcblog"
         minSdk 21
         targetSdk 34
         versionCode 1
@@ -26,16 +26,15 @@ android {
 }
 
 dependencies {
-    // 最新 WebRTC fork (2025-06, 支持 1080p)
-    implementation 'com.infobip:google-webrtc:1.0.45036'
+    // 最新 WebRTC (2025-07, 支持 1080p)
+    implementation 'io.github.webrtc-sdk:android:137.7151.00'
 
-    // 最新 PubNub (2025, 替换旧版)
+    // 最新 PubNub (2025-10)
     implementation 'com.pubnub:pubnub-gson:11.0.0'
 
-    // 注释老依赖（避免冲突）
+    // 注释老依赖
     // implementation 'io.pristine:libjingle:9694@aar'
     // implementation 'me.kevingleason:pnwebrtc:1.0.6@aar'
-    // implementation 'com.pubnub:pubnub-android:3.7.4'
 
     // 基础库
     implementation 'androidx.appcompat:appcompat:1.7.0'
