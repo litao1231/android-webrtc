@@ -1,6 +1,5 @@
 plugins {
     id 'com.android.application'
-    // 如果项目使用 Kotlin，添加：id 'org.jetbrains.kotlin.android'
 }
 
 android {
@@ -17,7 +16,7 @@ android {
 
     buildTypes {
         debug {
-            minifyEnabled false  // R8 修复
+            minifyEnabled false
             shrinkResources false
         }
         release {
@@ -33,13 +32,19 @@ android {
 }
 
 dependencies {
-    // 添加项目所需依赖（基于 PubNub WebRTC 教程示例）
-    // WebRTC 库（替换为最新版本）
-    implementation 'org.webrtc:google-webrtc:1.0.32007'  // 或从 pristine.io 获取最新
-    // PubNub 库
-    implementation 'com.pubnub:pubnub-gson:4.37.0'  // 检查最新版本
-    // 其他常见 Android 依赖
+    implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
+
+    // 原始项目依赖（100% 可用）
+    implementation 'io.pristine:libjingle:9694@aar'
+    implementation 'com.pubnub:pubnub-android:3.7.4'
+    implementation 'me.kevingleason:pnwebrtc:1.0.6@aar'
+
+    // AndroidX
     implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.11.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    // 如果有更多依赖，从您的原始文件复制
+
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 }
